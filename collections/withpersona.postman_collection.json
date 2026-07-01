@@ -1,0 +1,447 @@
+{
+  "info": {
+    "name": "Persona API",
+    "description": "JSON:API-style REST collection for the Persona identity platform (KYC/KYB/AML/fraud). Base URL https://api.withpersona.com/api/v1. Authenticate with a Bearer API key; optionally set Persona-Version and Key-Inflection headers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{apiKey}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.withpersona.com/api/v1" },
+    { "key": "apiKey", "value": "" },
+    { "key": "personaVersion", "value": "2023-01-05" }
+  ],
+  "item": [
+    {
+      "name": "Inquiries",
+      "item": [
+        {
+          "name": "List all Inquiries",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Persona-Version", "value": "{{personaVersion}}" },
+              { "key": "Key-Inflection", "value": "camel" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/inquiries",
+              "host": ["{{baseUrl}}"],
+              "path": ["inquiries"]
+            }
+          }
+        },
+        {
+          "name": "Create an Inquiry",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Persona-Version", "value": "{{personaVersion}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"inquiry-template-id\": \"itmpl_ABC123\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/inquiries",
+              "host": ["{{baseUrl}}"],
+              "path": ["inquiries"]
+            }
+          }
+        },
+        {
+          "name": "Retrieve an Inquiry",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/inquiries/:inquiry-id",
+              "host": ["{{baseUrl}}"],
+              "path": ["inquiries", ":inquiry-id"],
+              "variable": [{ "key": "inquiry-id", "value": "" }]
+            }
+          }
+        },
+        {
+          "name": "Approve an Inquiry",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/inquiries/:inquiry-id/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["inquiries", ":inquiry-id", "approve"],
+              "variable": [{ "key": "inquiry-id", "value": "" }]
+            }
+          }
+        },
+        {
+          "name": "Decline an Inquiry",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/inquiries/:inquiry-id/decline",
+              "host": ["{{baseUrl}}"],
+              "path": ["inquiries", ":inquiry-id", "decline"],
+              "variable": [{ "key": "inquiry-id", "value": "" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inquiry Sessions",
+      "item": [
+        {
+          "name": "List all Inquiry Sessions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/inquiry-sessions",
+              "host": ["{{baseUrl}}"],
+              "path": ["inquiry-sessions"]
+            }
+          }
+        },
+        {
+          "name": "Create an Inquiry Session",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {}\n}" },
+            "url": {
+              "raw": "{{baseUrl}}/inquiry-sessions",
+              "host": ["{{baseUrl}}"],
+              "path": ["inquiry-sessions"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Accounts",
+      "item": [
+        {
+          "name": "List all Accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/accounts",
+              "host": ["{{baseUrl}}"],
+              "path": ["accounts"]
+            }
+          }
+        },
+        {
+          "name": "Create an Account",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {}\n}" },
+            "url": {
+              "raw": "{{baseUrl}}/accounts",
+              "host": ["{{baseUrl}}"],
+              "path": ["accounts"]
+            }
+          }
+        },
+        {
+          "name": "Retrieve an Account",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/accounts/:account-id",
+              "host": ["{{baseUrl}}"],
+              "path": ["accounts", ":account-id"],
+              "variable": [{ "key": "account-id", "value": "" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Verifications",
+      "item": [
+        {
+          "name": "Retrieve a Verification",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/verifications/:verification-id",
+              "host": ["{{baseUrl}}"],
+              "path": ["verifications", ":verification-id"],
+              "variable": [{ "key": "verification-id", "value": "" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "List all Reports",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reports",
+              "host": ["{{baseUrl}}"],
+              "path": ["reports"]
+            }
+          }
+        },
+        {
+          "name": "Create a Report",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {}\n}" },
+            "url": {
+              "raw": "{{baseUrl}}/reports",
+              "host": ["{{baseUrl}}"],
+              "path": ["reports"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cases",
+      "item": [
+        {
+          "name": "List all Cases",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cases",
+              "host": ["{{baseUrl}}"],
+              "path": ["cases"]
+            }
+          }
+        },
+        {
+          "name": "Create a Case",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {}\n}" },
+            "url": {
+              "raw": "{{baseUrl}}/cases",
+              "host": ["{{baseUrl}}"],
+              "path": ["cases"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "List all Transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/transactions",
+              "host": ["{{baseUrl}}"],
+              "path": ["transactions"]
+            }
+          }
+        },
+        {
+          "name": "Create a Transaction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {}\n}" },
+            "url": {
+              "raw": "{{baseUrl}}/transactions",
+              "host": ["{{baseUrl}}"],
+              "path": ["transactions"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Devices",
+      "item": [
+        {
+          "name": "List all Devices",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/devices",
+              "host": ["{{baseUrl}}"],
+              "path": ["devices"]
+            }
+          }
+        },
+        {
+          "name": "Retrieve a Device",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/devices/:device-id",
+              "host": ["{{baseUrl}}"],
+              "path": ["devices", ":device-id"],
+              "variable": [{ "key": "device-id", "value": "" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Documents",
+      "item": [
+        {
+          "name": "Retrieve a Document",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/documents/:document-id",
+              "host": ["{{baseUrl}}"],
+              "path": ["documents", ":document-id"],
+              "variable": [{ "key": "document-id", "value": "" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "List all Webhooks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks",
+              "host": ["{{baseUrl}}"],
+              "path": ["webhooks"]
+            }
+          }
+        },
+        {
+          "name": "Create a Webhook",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {}\n}" },
+            "url": {
+              "raw": "{{baseUrl}}/webhooks",
+              "host": ["{{baseUrl}}"],
+              "path": ["webhooks"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "List all Events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"]
+            }
+          }
+        },
+        {
+          "name": "Retrieve an Event",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/:event-id",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", ":event-id"],
+              "variable": [{ "key": "event-id", "value": "" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Importers",
+      "item": [
+        {
+          "name": "List all Importers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/importer",
+              "host": ["{{baseUrl}}"],
+              "path": ["importer"]
+            }
+          }
+        },
+        {
+          "name": "Retrieve an Importer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/importer/:importer-id",
+              "host": ["{{baseUrl}}"],
+              "path": ["importer", ":importer-id"],
+              "variable": [{ "key": "importer-id", "value": "" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Workflows",
+      "item": [
+        {
+          "name": "List all Workflow Runs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/workflow-runs",
+              "host": ["{{baseUrl}}"],
+              "path": ["workflow-runs"]
+            }
+          }
+        },
+        {
+          "name": "Create a Workflow Run",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {}\n}" },
+            "url": {
+              "raw": "{{baseUrl}}/workflow-runs",
+              "host": ["{{baseUrl}}"],
+              "path": ["workflow-runs"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

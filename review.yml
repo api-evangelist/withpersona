@@ -1,0 +1,93 @@
+aid: withpersona
+name: Persona
+review:
+  question: Does Persona expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-01'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Per API Evangelist scope, HTTP Server-Sent Events (SSE) is in-scope for
+    AsyncAPI modeling and WebSocket surfaces are modeled when documented.
+    Persona's public API is a synchronous JSON:API-style REST interface under
+    https://api.withpersona.com/api/v1. Asynchronous delivery is handled by
+    outbound webhooks (HTTP POST callbacks to subscriber endpoints), not by a
+    WebSocket or SSE stream, so no AsyncAPI document was authored.
+findings:
+  summary: |
+    Persona does not publish a documented public WebSocket API. All documented
+    endpoints are HTTPS REST following JSON:API conventions. Event delivery for
+    asynchronous state changes (inquiry.completed, verification.passed, etc.) is
+    done through configurable Webhooks that POST signed payloads to customer
+    endpoints, and through the Events API which can be polled for the immutable
+    record of account activity. No realtime, bidirectional WebSocket (ws:// or
+    wss://) endpoint is documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.withpersona.com/api/v1
+      documented: true
+    - protocol: Webhooks
+      scheme: https
+      note: Outbound HTTP POST callbacks to subscriber endpoints with a signed secret; not a client-consumed stream.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Persona's API reference as of the review date.
+  authentication:
+    scheme: Bearer
+    note: API key passed as a Bearer token in the Authorization header.
+  versioning:
+    header: Persona-Version
+    note: Date-based versioning (e.g. 2023-01-05) pinned via the Persona-Version header.
+  keyInflection:
+    header: Key-Inflection
+    values: [camel, kebab, snake]
+    note: Controls JSON key casing in requests and responses.
+  mediaType:
+    note: JSON:API style payloads wrapped in a top-level data object with type, id, attributes, and relationships.
+  endpointsConfirmedRest:
+    - GET    https://api.withpersona.com/api/v1/inquiries
+    - POST   https://api.withpersona.com/api/v1/inquiries
+    - GET    https://api.withpersona.com/api/v1/inquiries/{inquiry-id}
+    - POST   https://api.withpersona.com/api/v1/inquiries/{inquiry-id}/approve
+    - POST   https://api.withpersona.com/api/v1/inquiries/{inquiry-id}/decline
+    - GET    https://api.withpersona.com/api/v1/inquiry-sessions
+    - GET    https://api.withpersona.com/api/v1/accounts
+    - POST   https://api.withpersona.com/api/v1/accounts
+    - GET    https://api.withpersona.com/api/v1/verifications/{verification-id}
+    - GET    https://api.withpersona.com/api/v1/reports
+    - POST   https://api.withpersona.com/api/v1/reports
+    - GET    https://api.withpersona.com/api/v1/cases
+    - GET    https://api.withpersona.com/api/v1/transactions
+    - GET    https://api.withpersona.com/api/v1/devices
+    - GET    https://api.withpersona.com/api/v1/documents/{document-id}
+    - GET    https://api.withpersona.com/api/v1/webhooks
+    - GET    https://api.withpersona.com/api/v1/events
+    - GET    https://api.withpersona.com/api/v1/importer
+    - GET    https://api.withpersona.com/api/v1/workflow-runs
+sources:
+  - url: https://docs.withpersona.com/api-introduction
+    type: Documentation
+    note: Describes the REST API; no WebSocket surface mentioned.
+  - url: https://docs.withpersona.com/api-reference/webhooks
+    type: APIReference
+    note: Asynchronous delivery is via outbound HTTP webhooks, not WebSocket.
+  - url: https://docs.withpersona.com/api-reference/events
+    type: APIReference
+    note: Events are polled over REST; not a streamed transport.
+  - url: https://docs.withpersona.com/rate-limiting
+    type: Documentation
+    note: Confirms REST semantics, 429 responses, and rate-limit headers.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Persona's asynchronous delivery is
+    webhook-based (outbound HTTP POST), which is modeled through the Webhooks
+    and Events REST resources rather than an AsyncAPI streaming document. No
+    AsyncAPI artifact was authored.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

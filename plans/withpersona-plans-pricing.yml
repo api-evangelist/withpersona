@@ -1,0 +1,161 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Persona
+providerId: withpersona
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Identity
+- Identity Verification
+- KYC
+- KYB
+- AML
+- Fraud
+- Compliance
+- Plans
+description: >-
+  Persona prices on successful services (verifications and reports) rather than
+  attempts - if a user drops off due to their own error you are not charged.
+  A free Starter plan includes a monthly allotment of government ID (with
+  optional selfie) verifications. The self-serve Essential plan bundles a
+  monthly service allotment with overage per service. Growth and Enterprise
+  plans are sales-quoted with volume pricing, custom workflows, and support.
+  Database and government-lookup services carry additional per-query fees.
+notes: >-
+  Public figures below are representative of Persona's published pricing and
+  change over time; specific rates, allotments, and per-service overages are
+  confirmed with Persona sales or on the pricing page during reconciliation.
+sources:
+- https://withpersona.com/pricing
+- https://withpersona.com/blog/free-identity-verification
+- https://withpersona.com/startups
+- https://docs.withpersona.com
+plans:
+- id: withpersona-starter
+  name: Starter (Free)
+  type: free
+  description: >-
+    Free self-serve plan positioned as the industry's first free identity
+    verification tier, including a monthly allotment of government ID with
+    optional selfie verifications.
+  entries:
+  - label: Government ID (with optional Selfie) Verifications
+    name: starter_govid_selfie
+    type: free
+    metric: verifications
+    limit: 500
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.00 (included)
+    userMultiplied: false
+  elements:
+  - name: Inquiries
+  - name: Government ID Verification
+  - name: Selfie Verification
+  - name: Hosted and Embedded Flows
+- id: withpersona-essential
+  name: Essential
+  type: usage
+  description: >-
+    Self-serve paid plan on an annual contract with a monthly allotment of
+    free services (verifications or reports) and per-service overage beyond
+    the allotment.
+  entries:
+  - label: Base Subscription
+    name: essential_base
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from $250/month (annual)
+    userMultiplied: false
+  - label: Included Services
+    name: essential_included_services
+    type: free
+    metric: services
+    limit: 500
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included in base
+    userMultiplied: false
+  - label: Additional Services (overage)
+    name: essential_overage
+    type: usage
+    metric: services
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: ~$1.50 per additional service
+    userMultiplied: false
+  - label: Database / Government Lookups
+    name: essential_database_lookup
+    type: usage
+    metric: queries
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: ~$0.10-$0.75 per query (varies by data source)
+    userMultiplied: false
+  elements:
+  - name: Inquiries
+  - name: Verifications
+  - name: Reports
+  - name: Cases
+  - name: Webhooks
+- id: withpersona-growth
+  name: Growth
+  type: usage
+  description: >-
+    Sales-quoted plan for scaling teams adding Workflows automation, higher
+    volumes, additional verification and report types, and standard support.
+  entries:
+  - label: Volume Services
+    name: growth_services
+    type: usage
+    metric: services
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales (volume pricing)
+    userMultiplied: false
+  elements:
+  - name: Workflows
+  - name: Transactions
+  - name: Reports
+  - name: Case Management
+- id: withpersona-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Negotiated agreements for high-volume KYC/KYB/AML programs with custom
+    verification and report mixes, dedicated support, SSO/SAML, advanced data
+    residency, and SLAs.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume Pricing
+  - name: Dedicated Support
+  - name: SSO / SAML
+  - name: Data Residency
+  - name: SLAs
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

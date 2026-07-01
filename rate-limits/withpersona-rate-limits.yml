@@ -1,0 +1,63 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Persona
+providerId: withpersona
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Identity
+- Identity Verification
+- KYC
+- KYB
+- AML
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The Persona API enforces a default per-environment rate limiter of 300
+  requests per minute across all API keys in an environment, plus
+  product-specific quotas that cap object creation - for example, Inquiry
+  Created requests are limited to 150 per minute. The count starts on the
+  first request in a 60-second window and resets at the start of the next
+  minute. Requests over the limit return HTTP 429 Too Many Requests, and
+  responses expose the limit, remaining requests, and reset seconds as
+  headers.
+notes: >-
+  Rate limiters run before the idempotency layer, so a 429 is not cached by an
+  Idempotency-Key and identical retries will still be evaluated by the limiter.
+  Verify current default and product-specific limits in the Persona rate
+  limiting documentation during reconciliation.
+sources:
+- https://docs.withpersona.com/rate-limiting
+- https://docs.withpersona.com/idempotence
+- https://docs.withpersona.com/reference/errors
+responseCodes:
+  throttled: 429
+limits:
+- name: Default Environment Limit
+  scope: environment
+  metric: requests
+  limit: 300 per minute
+  notes: Applies to all API requests from any API key within the environment; resets at the start of each minute.
+- name: Inquiry Creation Quota
+  scope: environment
+  metric: requests
+  limit: 150 per minute
+  notes: Product-specific quota on Inquiry Created (POST /inquiries) requests.
+- name: Product-Specific Quotas
+  scope: environment
+  metric: requests
+  limit: see provider documentation
+  notes: Additional per-object creation quotas beyond the default limiter; vary by object type.
+policies:
+- name: Rate Limit Headers
+  description: Responses return the API limit, remaining requests, and seconds until reset as response headers.
+- name: Idempotency Ordering
+  description: The rate limiter executes before the idempotency layer, so a 429 is not deduplicated by the Idempotency-Key header.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor the reset window before retrying.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

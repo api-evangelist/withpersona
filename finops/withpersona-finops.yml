@@ -1,0 +1,107 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Persona
+providerId: withpersona
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Identity
+- Identity Verification
+- KYC
+- KYB
+- AML
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Persona spend. Persona bills on successful services -
+  verifications (government ID, selfie, document, phone, email) and reports
+  (watchlist, adverse media, business) - rather than on attempts, so drop-offs
+  and user-error failures are not charged. Database and government lookups
+  carry per-query fees on top of the base service, and paid plans layer a
+  monthly subscription with an included service allotment plus per-service
+  overage.
+notes: >-
+  Per-service and per-query rates vary by plan, verification type, and data
+  source; confirm against the Persona pricing page and your order form during
+  reconciliation.
+sources:
+- https://withpersona.com/pricing
+- https://docs.withpersona.com
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Persona
+serviceCategory: Identity and Compliance
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Persona
+  ServiceCategory: Identity and Compliance
+  ProviderName: Persona
+  PublisherName: Persona
+  InvoiceIssuerName: Persona
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: verifications
+  description: Successful verifications billed per service; type-dependent (government ID, selfie, document, phone, email).
+  unit: verifications
+  aggregation: sum
+  dimensions:
+  - account
+  - verification_type
+  - inquiry_template
+- name: reports
+  description: Reports run (watchlist, adverse media, PEP, business) billed per service.
+  unit: reports
+  aggregation: sum
+  dimensions:
+  - account
+  - report_type
+- name: database_lookups
+  description: Database and government lookups billed per query, priced by data source.
+  unit: queries
+  aggregation: sum
+  dimensions:
+  - account
+  - data_source
+- name: subscription
+  description: Monthly plan subscription fee with an included service allotment.
+  unit: months
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: overage_services
+  description: Services consumed beyond the plan's included monthly allotment.
+  unit: services
+  aggregation: sum
+  dimensions:
+  - account
+  - service_type
+principles:
+- name: Visibility
+  description: Pull Persona usage by service type via the dashboard and Events API; reconcile against invoices.
+- name: Allocation
+  description: Tag Inquiries, Accounts, and Transactions and scope API keys per environment/workload to map spend to teams.
+- name: Optimization
+  description: Because billing is on successful services, tune templates and flows to reduce unnecessary verifications; choose the minimum verification and report set that meets compliance requirements; batch imports where possible.
+- name: Accountability
+  description: Assign owners per template/environment and review monthly service volume and overage against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

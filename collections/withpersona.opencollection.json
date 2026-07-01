@@ -1,0 +1,320 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Persona API",
+    "version": "2023-01-05"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    },
+    "header": [
+      { "key": "Persona-Version", "value": "{{personaVersion}}" },
+      { "key": "Key-Inflection", "value": "camel" },
+      { "key": "Content-Type", "value": "application/json" }
+    ]
+  },
+  "items": [
+    {
+      "info": { "name": "Inquiries", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List all Inquiries", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/inquiries"
+          },
+          "docs": "Returns a paginated list of your organization's Inquiries."
+        },
+        {
+          "info": { "name": "Create an Inquiry", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiries",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"data\": {\n    \"attributes\": {\n      \"inquiry-template-id\": \"itmpl_ABC123\"\n    }\n  }\n}"
+            }
+          },
+          "docs": "Creates a new Inquiry against a template."
+        },
+        {
+          "info": { "name": "Retrieve an Inquiry", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/inquiries/:inquiry-id"
+          },
+          "docs": "Retrieves the details of an existing Inquiry."
+        },
+        {
+          "info": { "name": "Approve an Inquiry", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiries/:inquiry-id/approve"
+          },
+          "docs": "Approves an Inquiry."
+        },
+        {
+          "info": { "name": "Decline an Inquiry", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiries/:inquiry-id/decline"
+          },
+          "docs": "Declines an Inquiry."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Inquiry Sessions", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List all Inquiry Sessions", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/inquiry-sessions"
+          },
+          "docs": "Lists Inquiry Sessions."
+        },
+        {
+          "info": { "name": "Create an Inquiry Session", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiry-sessions",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Creates an Inquiry Session."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Accounts", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List all Accounts", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/accounts"
+          },
+          "docs": "Retrieves a list of your organization's Accounts."
+        },
+        {
+          "info": { "name": "Create an Account", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/accounts",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Creates an Account."
+        },
+        {
+          "info": { "name": "Retrieve an Account", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/accounts/:account-id"
+          },
+          "docs": "Retrieves an Account."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Verifications", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Retrieve a Verification", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/verifications/:verification-id"
+          },
+          "docs": "Retrieves a Verification of any type (government ID, selfie, database, document, phone, email)."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Reports", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List all Reports", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/reports"
+          },
+          "docs": "Lists Reports."
+        },
+        {
+          "info": { "name": "Create a Report", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/reports",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Runs a watchlist, adverse-media, PEP, or business Report."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Cases", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List all Cases", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/cases"
+          },
+          "docs": "Lists Cases."
+        },
+        {
+          "info": { "name": "Create a Case", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/cases",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Creates a Case."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Transactions", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List all Transactions", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/transactions"
+          },
+          "docs": "Lists Transactions."
+        },
+        {
+          "info": { "name": "Create a Transaction", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/transactions",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Creates a Transaction."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Devices", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List all Devices", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/devices"
+          },
+          "docs": "Lists Devices."
+        },
+        {
+          "info": { "name": "Retrieve a Device", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/devices/:device-id"
+          },
+          "docs": "Retrieves a Device."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Documents", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Retrieve a Document", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/documents/:document-id"
+          },
+          "docs": "Retrieves a Document collected during verification."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Webhooks", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List all Webhooks", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/webhooks"
+          },
+          "docs": "Lists Webhooks."
+        },
+        {
+          "info": { "name": "Create a Webhook", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/webhooks",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Creates a Webhook subscription."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Events", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List all Events", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/events"
+          },
+          "docs": "Lists Events."
+        },
+        {
+          "info": { "name": "Retrieve an Event", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/events/:event-id"
+          },
+          "docs": "Retrieves an Event."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Importers", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List all Importers", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/importer"
+          },
+          "docs": "Lists Importers."
+        },
+        {
+          "info": { "name": "Retrieve an Importer", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/importer/:importer-id"
+          },
+          "docs": "Retrieves an Importer."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Workflows", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List all Workflow Runs", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/workflow-runs"
+          },
+          "docs": "Lists Workflow Runs."
+        },
+        {
+          "info": { "name": "Create a Workflow Run", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/workflow-runs",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Creates a Workflow Run."
+        }
+      ]
+    }
+  ]
+}

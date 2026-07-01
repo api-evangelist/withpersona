@@ -1,0 +1,266 @@
+aid: withpersona
+url: https://raw.githubusercontent.com/api-evangelist/withpersona/refs/heads/main/apis.yml
+name: Persona
+kind: company
+description: Persona (withpersona.com) is a configurable identity platform for KYC,
+  KYB, AML, and fraud prevention. Its JSON:API-style REST API lets organizations run
+  identity Inquiries, collect Verifications (government ID, selfie, database, document,
+  phone, and email), pull watchlist and adverse-media Reports, manage review Cases,
+  score Transactions, and orchestrate Workflows, all under api.withpersona.com/api/v1.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Identity
+- Identity Verification
+- KYC
+- KYB
+- AML
+- Fraud
+- Compliance
+created: '2026-07-01'
+modified: '2026-07-01'
+specificationVersion: '0.19'
+apis:
+- aid: withpersona:persona-inquiries-api
+  name: Persona Inquiries API
+  tags:
+  - Inquiries
+  - Identity Verification
+  - Onboarding
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/inquiries
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/inquiries
+    type: Documentation
+  - url: https://docs.withpersona.com/api-reference/inquiries
+    type: APIReference
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  - url: collections/withpersona.postman_collection.json
+    type: PostmanCollection
+  - url: collections/withpersona.opencollection.json
+    type: OpenCollection
+  description: An Inquiry represents a single instance of an individual attempting
+    to verify their identity against a template. Create, retrieve, list, search,
+    update, approve, decline, mark-for-review, expire, resume, redact, tag, print
+    to PDF, and generate one-time links for Inquiries.
+- aid: withpersona:persona-inquiry-sessions-api
+  name: Persona Inquiry Sessions API
+  tags:
+  - Inquiry Sessions
+  - Sessions
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/inquiry-sessions
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/inquiry-sessions
+    type: Documentation
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  description: Inquiry Sessions represent an individual session within an Inquiry,
+    letting you create, list, retrieve, expire, and generate one-time links so a
+    person can resume a verification flow on another device.
+- aid: withpersona:persona-accounts-api
+  name: Persona Accounts API
+  tags:
+  - Accounts
+  - Identity
+  - Records
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/accounts
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/accounts
+    type: Documentation
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  description: An Account is the persistent record of an end user across Inquiries.
+    Create, retrieve, list, search, update, consolidate, redact, tag, and manage
+    relations between Accounts, and run configured account actions.
+- aid: withpersona:persona-verifications-api
+  name: Persona Verifications API
+  tags:
+  - Verifications
+  - Government ID
+  - Selfie
+  - Database
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/verifications
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/verifications
+    type: Documentation
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  description: A Verification answers whether an individual is who they claim to be
+    across many types - government ID, government ID NFC, selfie, document, phone
+    number, email address, and database checks (AAMVA, eCBSV, TIN, phone carrier,
+    business, standard). Retrieve, redact, and print Verifications to PDF.
+- aid: withpersona:persona-reports-api
+  name: Persona Reports API
+  tags:
+  - Reports
+  - Watchlist
+  - Adverse Media
+  - AML
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/reports
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/reports
+    type: Documentation
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  description: Reports run watchlist, adverse-media, PEP, and business lookups against
+    an individual or entity. Create, retrieve, list, redact, tag, dismiss matches,
+    pause/resume continuous monitoring, re-run, list history, and print to PDF.
+- aid: withpersona:persona-cases-api
+  name: Persona Cases API
+  tags:
+  - Cases
+  - Case Management
+  - Manual Review
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/cases
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/cases
+    type: Documentation
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  description: Cases group Persona objects (Inquiries, Accounts, Reports) for manual
+    review. Create, retrieve, list, search, update, assign, set status, add or remove
+    objects, tag, and redact Cases.
+- aid: withpersona:persona-transactions-api
+  name: Persona Transactions API
+  tags:
+  - Transactions
+  - Risk
+  - Fraud
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/transactions
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/transactions
+    type: Documentation
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  description: Transactions represent risk-scored events tied to an Account for ongoing
+    fraud monitoring. Create, retrieve, list, update, tag, label, manage relations,
+    redact, and redact transaction biometrics.
+- aid: withpersona:persona-devices-api
+  name: Persona Devices API
+  tags:
+  - Devices
+  - Device Intelligence
+  - Fraud
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/devices
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/devices
+    type: Documentation
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  description: Devices capture device-intelligence signals observed during a flow.
+    List and retrieve Device records collected across Inquiries and Transactions.
+- aid: withpersona:persona-documents-api
+  name: Persona Documents API
+  tags:
+  - Documents
+  - Files
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/documents
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/documents
+    type: Documentation
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  description: Documents are files collected during verification. Retrieve a Document,
+    a government-ID document, or a generic uploaded document by ID.
+- aid: withpersona:persona-webhooks-api
+  name: Persona Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/webhooks
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/webhooks
+    type: Documentation
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  description: Manage webhook subscriptions that deliver Persona events to your endpoints.
+    Create, retrieve, list, update, enable, disable, archive, clone, and rotate the
+    signing secret of a Webhook.
+- aid: withpersona:persona-events-api
+  name: Persona Events API
+  tags:
+  - Events
+  - Audit
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/events
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/events
+    type: Documentation
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  description: Events are the immutable, queryable record of everything that happens
+    in your Persona account. List and retrieve Events for audit and reconciliation
+    with webhook payloads.
+- aid: withpersona:persona-importers-api
+  name: Persona Importers API
+  tags:
+  - Importer
+  - Lists
+  - Bulk Import
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/importers
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/importers
+    type: Documentation
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  description: Importers bulk-load data into Persona lists. List and retrieve Importers
+    and import accounts, names, emails, phone numbers, government ID numbers, IP
+    addresses, geolocations, and faces into list objects.
+- aid: withpersona:persona-workflows-api
+  name: Persona Workflows API
+  tags:
+  - Workflows
+  - Automation
+  - Orchestration
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withpersona.com/api-reference/workflows
+  baseURL: https://api.withpersona.com/api/v1
+  properties:
+  - url: https://docs.withpersona.com/api-reference/workflows
+    type: Documentation
+  - url: openapi/withpersona-openapi.yml
+    type: OpenAPI
+  description: Workflows automate business logic by triggering actions based on verification
+    results or other events. Create a Workflow Run, retrieve a run, and list all
+    Workflow Runs.
+common:
+- type: GitHubOrganization
+  url: https://github.com/persona-id
+- type: LinkedIn
+  url: https://www.linkedin.com/company/withpersona
+- type: Website
+  url: https://withpersona.com
+- type: Documentation
+  url: https://docs.withpersona.com
+- type: Plans
+  url: plans/withpersona-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/withpersona-rate-limits.yml
+- type: FinOps
+  url: finops/withpersona-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
