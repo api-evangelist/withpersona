@@ -247,6 +247,12 @@ apis:
     results or other events. Create a Workflow Run, retrieve a run, and list all
     Workflow Runs.
 common:
+- type: VulnerabilityDisclosure
+  url: security/withpersona-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/withpersona-domain-security.yml
+- type: Authentication
+  url: authentication/withpersona-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/persona-id
 - type: LinkedIn
