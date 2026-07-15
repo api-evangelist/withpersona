@@ -247,6 +247,8 @@ apis:
     results or other events. Create a Workflow Run, retrieve a run, and list all
     Workflow Runs.
 common:
+- type: AgenticAccess
+  url: agentic-access/withpersona-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/withpersona-vulnerability-disclosure.yml
 - type: DomainSecurity
