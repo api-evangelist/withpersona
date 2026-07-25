@@ -1,0 +1,161 @@
+openapi: 3.0.3
+info:
+  title: Persona Accounts Transactions API
+  description: 'The Persona API is a configurable identity platform for KYC, KYB, AML, and fraud prevention. It exposes Inquiries, Inquiry Sessions, Accounts, Verifications, Reports, Cases, Transactions, Devices, Documents, Webhooks, Events, Importers, and Workflow Runs.
+
+
+    All resources follow the JSON:API media type conventions: request and response payloads are wrapped in a top-level `data` object with `type`, `id`, `attributes`, and `relationships` members. Requests are authenticated with a Bearer API key. Two optional headers shape every request: `Persona-Version` pins the API version to a date (e.g. `2023-01-05`), and `Key-Inflection` selects the casing of JSON keys (`camel`, `kebab`, or `snake`). Idempotency is supported via the `Idempotency-Key` header.'
+  termsOfService: https://withpersona.com/legal/terms-of-service
+  contact:
+    name: Persona Support
+    url: https://help.withpersona.com
+    email: support@withpersona.com
+  version: '2023-01-05'
+servers:
+- url: https://api.withpersona.com/api/v1
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Transactions
+  description: Risk-scored events for ongoing fraud monitoring.
+paths:
+  /transactions:
+    get:
+      operationId: listAllTransactions
+      tags:
+      - Transactions
+      summary: List all Transactions
+      parameters:
+      - $ref: '#/components/parameters/PageAfter'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A list of Transactions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+    post:
+      operationId: createTransaction
+      tags:
+      - Transactions
+      summary: Create a Transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '201':
+          description: The created Transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /transactions/{transaction-id}:
+    parameters:
+    - name: transaction-id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: retrieveTransaction
+      tags:
+      - Transactions
+      summary: Retrieve a Transaction
+      responses:
+        '200':
+          description: The requested Transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+    patch:
+      operationId: updateTransaction
+      tags:
+      - Transactions
+      summary: Update a Transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '200':
+          description: The updated Transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+components:
+  parameters:
+    PageAfter:
+      name: page[after]
+      in: query
+      required: false
+      description: Cursor for the object after which to start the page.
+      schema:
+        type: string
+    PageSize:
+      name: page[size]
+      in: query
+      required: false
+      description: Number of results per page (max 100).
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+  schemas:
+    ResourceObject:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+    GenericList:
+      type: object
+      description: A JSON:API document wrapping a collection of resources.
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        links:
+          type: object
+          properties:
+            prev:
+              type: string
+              nullable: true
+            next:
+              type: string
+              nullable: true
+    GenericResource:
+      type: object
+      description: A JSON:API document wrapping a single resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        meta:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Persona API key passed as a Bearer token in the Authorization header.

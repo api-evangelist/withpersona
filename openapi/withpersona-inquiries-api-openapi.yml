@@ -1,0 +1,399 @@
+openapi: 3.0.3
+info:
+  title: Persona Accounts Inquiries API
+  description: 'The Persona API is a configurable identity platform for KYC, KYB, AML, and fraud prevention. It exposes Inquiries, Inquiry Sessions, Accounts, Verifications, Reports, Cases, Transactions, Devices, Documents, Webhooks, Events, Importers, and Workflow Runs.
+
+
+    All resources follow the JSON:API media type conventions: request and response payloads are wrapped in a top-level `data` object with `type`, `id`, `attributes`, and `relationships` members. Requests are authenticated with a Bearer API key. Two optional headers shape every request: `Persona-Version` pins the API version to a date (e.g. `2023-01-05`), and `Key-Inflection` selects the casing of JSON keys (`camel`, `kebab`, or `snake`). Idempotency is supported via the `Idempotency-Key` header.'
+  termsOfService: https://withpersona.com/legal/terms-of-service
+  contact:
+    name: Persona Support
+    url: https://help.withpersona.com
+    email: support@withpersona.com
+  version: '2023-01-05'
+servers:
+- url: https://api.withpersona.com/api/v1
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Inquiries
+  description: Instances of an individual verifying their identity against a template.
+paths:
+  /inquiries:
+    get:
+      operationId: listAllInquiries
+      tags:
+      - Inquiries
+      summary: List all Inquiries
+      description: Returns a paginated list of your organization's Inquiries in reverse chronological order.
+      parameters:
+      - $ref: '#/components/parameters/PageAfter'
+      - $ref: '#/components/parameters/PageBefore'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PersonaVersion'
+      - $ref: '#/components/parameters/KeyInflection'
+      responses:
+        '200':
+          description: A list of Inquiries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryList'
+    post:
+      operationId: createInquiry
+      tags:
+      - Inquiries
+      summary: Create an Inquiry
+      description: Creates a new Inquiry, optionally pre-filling attributes and auto-creating an Account or Session.
+      parameters:
+      - $ref: '#/components/parameters/PersonaVersion'
+      - $ref: '#/components/parameters/KeyInflection'
+      - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InquiryCreateRequest'
+      responses:
+        '201':
+          description: The created Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}:
+    parameters:
+    - $ref: '#/components/parameters/InquiryId'
+    get:
+      operationId: retrieveInquiry
+      tags:
+      - Inquiries
+      summary: Retrieve an Inquiry
+      description: Retrieves the details of an existing Inquiry.
+      parameters:
+      - $ref: '#/components/parameters/PersonaVersion'
+      - $ref: '#/components/parameters/KeyInflection'
+      responses:
+        '200':
+          description: The requested Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+    patch:
+      operationId: updateInquiry
+      tags:
+      - Inquiries
+      summary: Update an Inquiry
+      description: Updates fields on an existing Inquiry.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InquiryUpdateRequest'
+      responses:
+        '200':
+          description: The updated Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}/approve:
+    parameters:
+    - $ref: '#/components/parameters/InquiryId'
+    post:
+      operationId: approveInquiry
+      tags:
+      - Inquiries
+      summary: Approve an Inquiry
+      description: Approves an Inquiry that is in a completed or needs-review state.
+      responses:
+        '200':
+          description: The approved Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}/decline:
+    parameters:
+    - $ref: '#/components/parameters/InquiryId'
+    post:
+      operationId: declineInquiry
+      tags:
+      - Inquiries
+      summary: Decline an Inquiry
+      description: Declines an Inquiry.
+      responses:
+        '200':
+          description: The declined Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}/mark-for-review:
+    parameters:
+    - $ref: '#/components/parameters/InquiryId'
+    post:
+      operationId: markInquiryForReview
+      tags:
+      - Inquiries
+      summary: Mark an Inquiry for manual review
+      responses:
+        '200':
+          description: The Inquiry marked for review.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}/expire:
+    parameters:
+    - $ref: '#/components/parameters/InquiryId'
+    post:
+      operationId: expireInquiry
+      tags:
+      - Inquiries
+      summary: Expire an Inquiry
+      responses:
+        '200':
+          description: The expired Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}/resume:
+    parameters:
+    - $ref: '#/components/parameters/InquiryId'
+    post:
+      operationId: resumeInquiry
+      tags:
+      - Inquiries
+      summary: Resume an Inquiry
+      description: Resumes an Inquiry and returns a session token to continue the flow.
+      responses:
+        '200':
+          description: The resumed Inquiry with a session token in meta.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}/generate-one-time-link:
+    parameters:
+    - $ref: '#/components/parameters/InquiryId'
+    post:
+      operationId: generateInquiryOneTimeLink
+      tags:
+      - Inquiries
+      summary: Generate a one-time link for an Inquiry
+      responses:
+        '200':
+          description: The Inquiry with a one-time link in meta.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}:redact:
+    parameters:
+    - $ref: '#/components/parameters/InquiryId'
+    delete:
+      operationId: redactInquiry
+      tags:
+      - Inquiries
+      summary: Redact an Inquiry
+      description: Permanently redacts personally identifiable information from an Inquiry.
+      responses:
+        '200':
+          description: The redacted Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+components:
+  parameters:
+    InquiryId:
+      name: inquiry-id
+      in: path
+      required: true
+      description: The unique identifier of the Inquiry.
+      schema:
+        type: string
+    PageAfter:
+      name: page[after]
+      in: query
+      required: false
+      description: Cursor for the object after which to start the page.
+      schema:
+        type: string
+    KeyInflection:
+      name: Key-Inflection
+      in: header
+      required: false
+      description: Controls the casing of JSON keys in requests and responses.
+      schema:
+        type: string
+        enum:
+        - camel
+        - kebab
+        - snake
+    PersonaVersion:
+      name: Persona-Version
+      in: header
+      required: false
+      description: Pins the API version to a release date, e.g. 2023-01-05.
+      schema:
+        type: string
+        example: '2023-01-05'
+    PageSize:
+      name: page[size]
+      in: query
+      required: false
+      description: Number of results per page (max 100).
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      description: A unique key to safely retry a request without duplicating the operation.
+      schema:
+        type: string
+    PageBefore:
+      name: page[before]
+      in: query
+      required: false
+      description: Cursor for the object before which to end the page.
+      schema:
+        type: string
+  schemas:
+    InquiryResourceObject:
+      allOf:
+      - $ref: '#/components/schemas/ResourceObject'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: inquiry
+          attributes:
+            $ref: '#/components/schemas/InquiryAttributes'
+    ResourceObject:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+    InquiryAttributes:
+      type: object
+      properties:
+        status:
+          type: string
+          description: The current state of the Inquiry (e.g. created, pending, completed, approved, declined, expired).
+          example: completed
+        reference-id:
+          type: string
+          nullable: true
+        created-at:
+          type: string
+          format: date-time
+        completed-at:
+          type: string
+          format: date-time
+          nullable: true
+        fields:
+          type: object
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            type: string
+    InquiryCreateRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          properties:
+            attributes:
+              type: object
+              properties:
+                inquiry-template-id:
+                  type: string
+                  description: The template that defines the verification flow.
+                  example: itmpl_ABC123
+                reference-id:
+                  type: string
+                fields:
+                  type: object
+                  additionalProperties: true
+                tags:
+                  type: array
+                  items:
+                    type: string
+        meta:
+          type: object
+          properties:
+            auto-create-account:
+              type: boolean
+            auto-create-inquiry-session:
+              type: boolean
+    InquiryUpdateRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          properties:
+            attributes:
+              type: object
+              properties:
+                fields:
+                  type: object
+                  additionalProperties: true
+                note:
+                  type: string
+    InquiryResource:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/InquiryResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        meta:
+          type: object
+          additionalProperties: true
+    InquiryList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InquiryResourceObject'
+        links:
+          type: object
+          properties:
+            prev:
+              type: string
+              nullable: true
+            next:
+              type: string
+              nullable: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Persona API key passed as a Bearer token in the Authorization header.

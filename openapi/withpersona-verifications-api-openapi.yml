@@ -1,0 +1,99 @@
+openapi: 3.0.3
+info:
+  title: Persona Accounts Verifications API
+  description: 'The Persona API is a configurable identity platform for KYC, KYB, AML, and fraud prevention. It exposes Inquiries, Inquiry Sessions, Accounts, Verifications, Reports, Cases, Transactions, Devices, Documents, Webhooks, Events, Importers, and Workflow Runs.
+
+
+    All resources follow the JSON:API media type conventions: request and response payloads are wrapped in a top-level `data` object with `type`, `id`, `attributes`, and `relationships` members. Requests are authenticated with a Bearer API key. Two optional headers shape every request: `Persona-Version` pins the API version to a date (e.g. `2023-01-05`), and `Key-Inflection` selects the casing of JSON keys (`camel`, `kebab`, or `snake`). Idempotency is supported via the `Idempotency-Key` header.'
+  termsOfService: https://withpersona.com/legal/terms-of-service
+  contact:
+    name: Persona Support
+    url: https://help.withpersona.com
+    email: support@withpersona.com
+  version: '2023-01-05'
+servers:
+- url: https://api.withpersona.com/api/v1
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Verifications
+  description: Individual identity checks (government ID, selfie, database, document, phone, email).
+paths:
+  /verifications/{verification-id}:
+    parameters:
+    - name: verification-id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: retrieveVerification
+      tags:
+      - Verifications
+      summary: Retrieve a Verification
+      description: Retrieves an existing Verification of any type - government ID, government ID NFC, selfie, document, phone number, email address, or database (AAMVA, eCBSV, TIN, phone carrier, business, standard).
+      parameters:
+      - $ref: '#/components/parameters/PersonaVersion'
+      - $ref: '#/components/parameters/KeyInflection'
+      responses:
+        '200':
+          description: The requested Verification.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+components:
+  parameters:
+    PersonaVersion:
+      name: Persona-Version
+      in: header
+      required: false
+      description: Pins the API version to a release date, e.g. 2023-01-05.
+      schema:
+        type: string
+        example: '2023-01-05'
+    KeyInflection:
+      name: Key-Inflection
+      in: header
+      required: false
+      description: Controls the casing of JSON keys in requests and responses.
+      schema:
+        type: string
+        enum:
+        - camel
+        - kebab
+        - snake
+  schemas:
+    ResourceObject:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+    GenericResource:
+      type: object
+      description: A JSON:API document wrapping a single resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        meta:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Persona API key passed as a Bearer token in the Authorization header.
