@@ -1,0 +1,38 @@
+{
+  "provider": "withpersona",
+  "sources": [
+    "withpersona-accounts-api-openapi.yml",
+    "withpersona-cases-api-openapi.yml",
+    "withpersona-devices-api-openapi.yml",
+    "withpersona-documents-api-openapi.yml",
+    "withpersona-events-api-openapi.yml",
+    "withpersona-importers-api-openapi.yml",
+    "withpersona-inquiries-api-openapi.yml",
+    "withpersona-inquiry-sessions-api-openapi.yml",
+    "withpersona-reports-api-openapi.yml",
+    "withpersona-transactions-api-openapi.yml",
+    "withpersona-verifications-api-openapi.yml",
+    "withpersona-webhooks-api-openapi.yml",
+    "withpersona-workflows-api-openapi.yml"
+  ],
+  "outputs": [
+    "withpersona-accounts-api-openapi.yml",
+    "withpersona-cases-api-openapi.yml",
+    "withpersona-devices-api-openapi.yml",
+    "withpersona-documents-api-openapi.yml",
+    "withpersona-events-api-openapi.yml",
+    "withpersona-importers-api-openapi.yml",
+    "withpersona-inquiries-api-openapi.yml",
+    "withpersona-inquiry-sessions-api-openapi.yml",
+    "withpersona-reports-api-openapi.yml",
+    "withpersona-transactions-api-openapi.yml",
+    "withpersona-verifications-api-openapi.yml",
+    "withpersona-webhooks-api-openapi.yml",
+    "withpersona-workflows-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

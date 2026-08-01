@@ -1,0 +1,1109 @@
+openapi: 3.0.3
+info:
+  title: Persona API
+  description: >-
+    The Persona API is a configurable identity platform for KYC, KYB, AML, and
+    fraud prevention. It exposes Inquiries, Inquiry Sessions, Accounts,
+    Verifications, Reports, Cases, Transactions, Devices, Documents, Webhooks,
+    Events, Importers, and Workflow Runs.
+
+
+    All resources follow the JSON:API media type conventions: request and
+    response payloads are wrapped in a top-level `data` object with `type`,
+    `id`, `attributes`, and `relationships` members. Requests are authenticated
+    with a Bearer API key. Two optional headers shape every request:
+    `Persona-Version` pins the API version to a date (e.g. `2023-01-05`), and
+    `Key-Inflection` selects the casing of JSON keys (`camel`, `kebab`, or
+    `snake`). Idempotency is supported via the `Idempotency-Key` header.
+  termsOfService: https://withpersona.com/legal/terms-of-service
+  contact:
+    name: Persona Support
+    url: https://help.withpersona.com
+    email: support@withpersona.com
+  version: '2023-01-05'
+servers:
+  - url: https://api.withpersona.com/api/v1
+    description: Production
+security:
+  - bearerAuth: []
+tags:
+  - name: Inquiries
+    description: Instances of an individual verifying their identity against a template.
+  - name: Inquiry Sessions
+    description: Individual sessions within an Inquiry.
+  - name: Accounts
+    description: Persistent end-user records across Inquiries.
+  - name: Verifications
+    description: Individual identity checks (government ID, selfie, database, document, phone, email).
+  - name: Reports
+    description: Watchlist, adverse-media, PEP, and business lookups.
+  - name: Cases
+    description: Grouped Persona objects for manual review.
+  - name: Transactions
+    description: Risk-scored events for ongoing fraud monitoring.
+  - name: Devices
+    description: Device-intelligence records.
+  - name: Documents
+    description: Files collected during verification.
+  - name: Webhooks
+    description: Webhook subscriptions that deliver Persona events.
+  - name: Events
+    description: Immutable record of everything that happens in an account.
+  - name: Importers
+    description: Bulk-load data into Persona lists.
+  - name: Workflows
+    description: Automation runs triggered by verification results or events.
+paths:
+  /inquiries:
+    get:
+      operationId: listAllInquiries
+      tags: [Inquiries]
+      summary: List all Inquiries
+      description: Returns a paginated list of your organization's Inquiries in reverse chronological order.
+      parameters:
+        - $ref: '#/components/parameters/PageAfter'
+        - $ref: '#/components/parameters/PageBefore'
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PersonaVersion'
+        - $ref: '#/components/parameters/KeyInflection'
+      responses:
+        '200':
+          description: A list of Inquiries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryList'
+    post:
+      operationId: createInquiry
+      tags: [Inquiries]
+      summary: Create an Inquiry
+      description: Creates a new Inquiry, optionally pre-filling attributes and auto-creating an Account or Session.
+      parameters:
+        - $ref: '#/components/parameters/PersonaVersion'
+        - $ref: '#/components/parameters/KeyInflection'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InquiryCreateRequest'
+      responses:
+        '201':
+          description: The created Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}:
+    parameters:
+      - $ref: '#/components/parameters/InquiryId'
+    get:
+      operationId: retrieveInquiry
+      tags: [Inquiries]
+      summary: Retrieve an Inquiry
+      description: Retrieves the details of an existing Inquiry.
+      parameters:
+        - $ref: '#/components/parameters/PersonaVersion'
+        - $ref: '#/components/parameters/KeyInflection'
+      responses:
+        '200':
+          description: The requested Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+    patch:
+      operationId: updateInquiry
+      tags: [Inquiries]
+      summary: Update an Inquiry
+      description: Updates fields on an existing Inquiry.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InquiryUpdateRequest'
+      responses:
+        '200':
+          description: The updated Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}/approve:
+    parameters:
+      - $ref: '#/components/parameters/InquiryId'
+    post:
+      operationId: approveInquiry
+      tags: [Inquiries]
+      summary: Approve an Inquiry
+      description: Approves an Inquiry that is in a completed or needs-review state.
+      responses:
+        '200':
+          description: The approved Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}/decline:
+    parameters:
+      - $ref: '#/components/parameters/InquiryId'
+    post:
+      operationId: declineInquiry
+      tags: [Inquiries]
+      summary: Decline an Inquiry
+      description: Declines an Inquiry.
+      responses:
+        '200':
+          description: The declined Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}/mark-for-review:
+    parameters:
+      - $ref: '#/components/parameters/InquiryId'
+    post:
+      operationId: markInquiryForReview
+      tags: [Inquiries]
+      summary: Mark an Inquiry for manual review
+      responses:
+        '200':
+          description: The Inquiry marked for review.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}/expire:
+    parameters:
+      - $ref: '#/components/parameters/InquiryId'
+    post:
+      operationId: expireInquiry
+      tags: [Inquiries]
+      summary: Expire an Inquiry
+      responses:
+        '200':
+          description: The expired Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}/resume:
+    parameters:
+      - $ref: '#/components/parameters/InquiryId'
+    post:
+      operationId: resumeInquiry
+      tags: [Inquiries]
+      summary: Resume an Inquiry
+      description: Resumes an Inquiry and returns a session token to continue the flow.
+      responses:
+        '200':
+          description: The resumed Inquiry with a session token in meta.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}/generate-one-time-link:
+    parameters:
+      - $ref: '#/components/parameters/InquiryId'
+    post:
+      operationId: generateInquiryOneTimeLink
+      tags: [Inquiries]
+      summary: Generate a one-time link for an Inquiry
+      responses:
+        '200':
+          description: The Inquiry with a one-time link in meta.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiries/{inquiry-id}:redact:
+    parameters:
+      - $ref: '#/components/parameters/InquiryId'
+    delete:
+      operationId: redactInquiry
+      tags: [Inquiries]
+      summary: Redact an Inquiry
+      description: Permanently redacts personally identifiable information from an Inquiry.
+      responses:
+        '200':
+          description: The redacted Inquiry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResource'
+  /inquiry-sessions:
+    get:
+      operationId: listAllInquirySessions
+      tags: [Inquiry Sessions]
+      summary: List all Inquiry Sessions
+      parameters:
+        - $ref: '#/components/parameters/PageAfter'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A list of Inquiry Sessions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+    post:
+      operationId: createInquirySession
+      tags: [Inquiry Sessions]
+      summary: Create an Inquiry Session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '201':
+          description: The created Inquiry Session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /inquiry-sessions/{inquiry-session-id}:
+    parameters:
+      - name: inquiry-session-id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveInquirySession
+      tags: [Inquiry Sessions]
+      summary: Retrieve an Inquiry Session
+      responses:
+        '200':
+          description: The requested Inquiry Session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /inquiry-sessions/{inquiry-session-id}/expire:
+    parameters:
+      - name: inquiry-session-id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: expireInquirySession
+      tags: [Inquiry Sessions]
+      summary: Expire an Inquiry Session
+      responses:
+        '200':
+          description: The expired Inquiry Session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /accounts:
+    get:
+      operationId: listAllAccounts
+      tags: [Accounts]
+      summary: List all Accounts
+      description: Retrieves a list of your organization's Accounts in reverse chronological order.
+      parameters:
+        - $ref: '#/components/parameters/PageAfter'
+        - $ref: '#/components/parameters/PageBefore'
+        - $ref: '#/components/parameters/PageSize'
+        - name: filter[reference-id]
+          in: query
+          schema:
+            type: string
+          description: Filter Accounts by reference ID.
+        - $ref: '#/components/parameters/PersonaVersion'
+        - $ref: '#/components/parameters/KeyInflection'
+      responses:
+        '200':
+          description: A list of Accounts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+    post:
+      operationId: createAccount
+      tags: [Accounts]
+      summary: Create an Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '201':
+          description: The created Account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /accounts/{account-id}:
+    parameters:
+      - name: account-id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveAccount
+      tags: [Accounts]
+      summary: Retrieve an Account
+      responses:
+        '200':
+          description: The requested Account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+    patch:
+      operationId: updateAccount
+      tags: [Accounts]
+      summary: Update an Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '200':
+          description: The updated Account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /accounts/{account-id}/consolidate:
+    parameters:
+      - name: account-id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: consolidateAccounts
+      tags: [Accounts]
+      summary: Consolidate Accounts into an Account
+      responses:
+        '200':
+          description: The consolidated Account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /verifications/{verification-id}:
+    parameters:
+      - name: verification-id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveVerification
+      tags: [Verifications]
+      summary: Retrieve a Verification
+      description: >-
+        Retrieves an existing Verification of any type - government ID,
+        government ID NFC, selfie, document, phone number, email address, or
+        database (AAMVA, eCBSV, TIN, phone carrier, business, standard).
+      parameters:
+        - $ref: '#/components/parameters/PersonaVersion'
+        - $ref: '#/components/parameters/KeyInflection'
+      responses:
+        '200':
+          description: The requested Verification.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /reports:
+    get:
+      operationId: listAllReports
+      tags: [Reports]
+      summary: List all Reports
+      parameters:
+        - $ref: '#/components/parameters/PageAfter'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A list of Reports.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+    post:
+      operationId: createReport
+      tags: [Reports]
+      summary: Create a Report
+      description: Runs a watchlist, adverse-media, PEP, or business lookup Report.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '201':
+          description: The created Report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /reports/{report-id}:
+    parameters:
+      - name: report-id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveReport
+      tags: [Reports]
+      summary: Retrieve a Report
+      responses:
+        '200':
+          description: The requested Report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /cases:
+    get:
+      operationId: listAllCases
+      tags: [Cases]
+      summary: List all Cases
+      parameters:
+        - $ref: '#/components/parameters/PageAfter'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A list of Cases.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+    post:
+      operationId: createCase
+      tags: [Cases]
+      summary: Create a Case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '201':
+          description: The created Case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /cases/{case-id}:
+    parameters:
+      - name: case-id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveCase
+      tags: [Cases]
+      summary: Retrieve a Case
+      responses:
+        '200':
+          description: The requested Case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+    patch:
+      operationId: updateCase
+      tags: [Cases]
+      summary: Update a Case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '200':
+          description: The updated Case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /cases/{case-id}/assign:
+    parameters:
+      - name: case-id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: assignCase
+      tags: [Cases]
+      summary: Assign a Case
+      responses:
+        '200':
+          description: The assigned Case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /transactions:
+    get:
+      operationId: listAllTransactions
+      tags: [Transactions]
+      summary: List all Transactions
+      parameters:
+        - $ref: '#/components/parameters/PageAfter'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A list of Transactions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+    post:
+      operationId: createTransaction
+      tags: [Transactions]
+      summary: Create a Transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '201':
+          description: The created Transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /transactions/{transaction-id}:
+    parameters:
+      - name: transaction-id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveTransaction
+      tags: [Transactions]
+      summary: Retrieve a Transaction
+      responses:
+        '200':
+          description: The requested Transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+    patch:
+      operationId: updateTransaction
+      tags: [Transactions]
+      summary: Update a Transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '200':
+          description: The updated Transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /devices:
+    get:
+      operationId: listAllDevices
+      tags: [Devices]
+      summary: List all Devices
+      parameters:
+        - $ref: '#/components/parameters/PageAfter'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A list of Devices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+  /devices/{device-id}:
+    parameters:
+      - name: device-id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveDevice
+      tags: [Devices]
+      summary: Retrieve a Device
+      responses:
+        '200':
+          description: The requested Device.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /documents/{document-id}:
+    parameters:
+      - name: document-id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveDocument
+      tags: [Documents]
+      summary: Retrieve a Document
+      description: Retrieves a Document collected during verification (generic or government-ID document).
+      responses:
+        '200':
+          description: The requested Document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /webhooks:
+    get:
+      operationId: listAllWebhooks
+      tags: [Webhooks]
+      summary: List all Webhooks
+      parameters:
+        - $ref: '#/components/parameters/PageAfter'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A list of Webhooks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+    post:
+      operationId: createWebhook
+      tags: [Webhooks]
+      summary: Create a Webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '201':
+          description: The created Webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /webhooks/{webhook-id}:
+    parameters:
+      - name: webhook-id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveWebhook
+      tags: [Webhooks]
+      summary: Retrieve a Webhook
+      responses:
+        '200':
+          description: The requested Webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+    patch:
+      operationId: updateWebhook
+      tags: [Webhooks]
+      summary: Update a Webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '200':
+          description: The updated Webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /webhooks/{webhook-id}/enable:
+    parameters:
+      - name: webhook-id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: enableWebhook
+      tags: [Webhooks]
+      summary: Enable a Webhook
+      responses:
+        '200':
+          description: The enabled Webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /webhooks/{webhook-id}/disable:
+    parameters:
+      - name: webhook-id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: disableWebhook
+      tags: [Webhooks]
+      summary: Disable a Webhook
+      responses:
+        '200':
+          description: The disabled Webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /events:
+    get:
+      operationId: listAllEvents
+      tags: [Events]
+      summary: List all Events
+      description: Returns the queryable record of everything that has happened in your account.
+      parameters:
+        - $ref: '#/components/parameters/PageAfter'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A list of Events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+  /events/{event-id}:
+    parameters:
+      - name: event-id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveEvent
+      tags: [Events]
+      summary: Retrieve an Event
+      responses:
+        '200':
+          description: The requested Event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /importer:
+    get:
+      operationId: listAllImporters
+      tags: [Importers]
+      summary: List all Importers
+      parameters:
+        - $ref: '#/components/parameters/PageAfter'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A list of Importers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+  /importer/{importer-id}:
+    parameters:
+      - name: importer-id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveImporter
+      tags: [Importers]
+      summary: Retrieve an Importer
+      responses:
+        '200':
+          description: The requested Importer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /workflow-runs:
+    get:
+      operationId: listAllWorkflowRuns
+      tags: [Workflows]
+      summary: List all Workflow Runs
+      parameters:
+        - $ref: '#/components/parameters/PageAfter'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A list of Workflow Runs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+    post:
+      operationId: createWorkflowRun
+      tags: [Workflows]
+      summary: Create a Workflow Run
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericResource'
+      responses:
+        '201':
+          description: The created Workflow Run.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+  /workflow-runs/{workflow-run-id}:
+    parameters:
+      - name: workflow-run-id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: retrieveWorkflowRun
+      tags: [Workflows]
+      summary: Retrieve a Workflow Run
+      responses:
+        '200':
+          description: The requested Workflow Run.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResource'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Persona API key passed as a Bearer token in the Authorization header.
+  parameters:
+    InquiryId:
+      name: inquiry-id
+      in: path
+      required: true
+      description: The unique identifier of the Inquiry.
+      schema:
+        type: string
+    PersonaVersion:
+      name: Persona-Version
+      in: header
+      required: false
+      description: Pins the API version to a release date, e.g. 2023-01-05.
+      schema:
+        type: string
+        example: '2023-01-05'
+    KeyInflection:
+      name: Key-Inflection
+      in: header
+      required: false
+      description: Controls the casing of JSON keys in requests and responses.
+      schema:
+        type: string
+        enum: [camel, kebab, snake]
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      description: A unique key to safely retry a request without duplicating the operation.
+      schema:
+        type: string
+    PageAfter:
+      name: page[after]
+      in: query
+      required: false
+      description: Cursor for the object after which to start the page.
+      schema:
+        type: string
+    PageBefore:
+      name: page[before]
+      in: query
+      required: false
+      description: Cursor for the object before which to end the page.
+      schema:
+        type: string
+    PageSize:
+      name: page[size]
+      in: query
+      required: false
+      description: Number of results per page (max 100).
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+  schemas:
+    ResourceObject:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+    GenericResource:
+      type: object
+      description: A JSON:API document wrapping a single resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        meta:
+          type: object
+          additionalProperties: true
+    GenericList:
+      type: object
+      description: A JSON:API document wrapping a collection of resources.
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        links:
+          type: object
+          properties:
+            prev:
+              type: string
+              nullable: true
+            next:
+              type: string
+              nullable: true
+    InquiryAttributes:
+      type: object
+      properties:
+        status:
+          type: string
+          description: The current state of the Inquiry (e.g. created, pending, completed, approved, declined, expired).
+          example: completed
+        reference-id:
+          type: string
+          nullable: true
+        created-at:
+          type: string
+          format: date-time
+        completed-at:
+          type: string
+          format: date-time
+          nullable: true
+        fields:
+          type: object
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            type: string
+    InquiryResourceObject:
+      allOf:
+        - $ref: '#/components/schemas/ResourceObject'
+        - type: object
+          properties:
+            type:
+              type: string
+              example: inquiry
+            attributes:
+              $ref: '#/components/schemas/InquiryAttributes'
+    InquiryResource:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/InquiryResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        meta:
+          type: object
+          additionalProperties: true
+    InquiryList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InquiryResourceObject'
+        links:
+          type: object
+          properties:
+            prev:
+              type: string
+              nullable: true
+            next:
+              type: string
+              nullable: true
+    InquiryCreateRequest:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          properties:
+            attributes:
+              type: object
+              properties:
+                inquiry-template-id:
+                  type: string
+                  description: The template that defines the verification flow.
+                  example: itmpl_ABC123
+                reference-id:
+                  type: string
+                fields:
+                  type: object
+                  additionalProperties: true
+                tags:
+                  type: array
+                  items:
+                    type: string
+        meta:
+          type: object
+          properties:
+            auto-create-account:
+              type: boolean
+            auto-create-inquiry-session:
+              type: boolean
+    InquiryUpdateRequest:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          properties:
+            attributes:
+              type: object
+              properties:
+                fields:
+                  type: object
+                  additionalProperties: true
+                note:
+                  type: string
