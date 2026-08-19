@@ -1,0 +1,1216 @@
+{
+  "item": [
+    {
+      "id": "7c421f39-030d-4584-ab0f-88ae668e6833",
+      "name": "Inquiries",
+      "description": {
+        "content": "Instances of an individual verifying their identity against a template.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "488007fa-7b20-4102-84a3-fc4d862eb4a2",
+          "name": "List all Inquiries",
+          "request": {
+            "name": "List all Inquiries",
+            "description": {
+              "content": "Returns a paginated list of your organization's Inquiries in reverse chronological order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inquiries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>",
+                  "description": "Cursor for the object after which to start the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<string>",
+                  "description": "Cursor for the object before which to end the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "10",
+                  "description": "Number of results per page (max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Pins the API version to a release date, e.g. 2023-01-05.",
+                "key": "Persona-Version",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Controls the casing of JSON keys in requests and responses.",
+                "key": "Key-Inflection",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5fe7fbfe-3634-4960-82ca-d3208d7bc47c",
+              "name": "A list of Inquiries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inquiries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Pins the API version to a release date, e.g. 2023-01-05.",
+                    "key": "Persona-Version",
+                    "value": "2023-01-05"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Controls the casing of JSON keys in requests and responses.",
+                    "key": "Key-Inflection",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"inquiry\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"status\": \"completed\",\n        \"reference-id\": \"string\",\n        \"created-at\": \"2008-09-06T05:43:39.841Z\",\n        \"completed-at\": \"2017-02-10T00:45:50.488Z\",\n        \"fields\": {\n          \"key_0\": \"string\",\n          \"key_1\": 6763.5703538632515\n        },\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_0\": 713.9172709782182,\n        \"key_1\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": false\n      }\n    },\n    {\n      \"type\": \"inquiry\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"status\": \"completed\",\n        \"reference-id\": \"string\",\n        \"created-at\": \"1980-12-27T12:55:49.832Z\",\n        \"completed-at\": \"1970-08-10T10:18:28.027Z\",\n        \"fields\": {\n          \"key_0\": 2863,\n          \"key_1\": false,\n          \"key_2\": 4602\n        },\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"relationships\": {\n        \"key_0\": 7404.923501174987\n      }\n    }\n  ],\n  \"links\": {\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d4982c7-85f6-4664-92c7-3419c437920e",
+          "name": "Create an Inquiry",
+          "request": {
+            "name": "Create an Inquiry",
+            "description": {
+              "content": "Creates a new Inquiry, optionally pre-filling attributes and auto-creating an Account or Session.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inquiries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Pins the API version to a release date, e.g. 2023-01-05.",
+                "key": "Persona-Version",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Controls the casing of JSON keys in requests and responses.",
+                "key": "Key-Inflection",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "A unique key to safely retry a request without duplicating the operation.",
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"inquiry-template-id\": \"<string>\",\n      \"reference-id\": \"<string>\",\n      \"fields\": {\n        \"key_0\": 2304.2917876603133,\n        \"key_1\": \"string\",\n        \"key_2\": true\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"meta\": {\n    \"auto-create-account\": \"<boolean>\",\n    \"auto-create-inquiry-session\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3cca14a6-c756-4881-97ed-54dbcb7f172a",
+              "name": "The created Inquiry.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inquiries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Pins the API version to a release date, e.g. 2023-01-05.",
+                    "key": "Persona-Version",
+                    "value": "2023-01-05"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Controls the casing of JSON keys in requests and responses.",
+                    "key": "Key-Inflection",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A unique key to safely retry a request without duplicating the operation.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"inquiry-template-id\": \"itmpl_ABC123\",\n      \"reference-id\": \"<string>\",\n      \"fields\": {\n        \"key_0\": 3160\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"meta\": {\n    \"auto-create-account\": \"<boolean>\",\n    \"auto-create-inquiry-session\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"inquiry\",\n    \"id\": \"string\",\n    \"attributes\": {\n      \"status\": \"completed\",\n      \"reference-id\": \"string\",\n      \"created-at\": \"2013-08-29T10:11:24.572Z\",\n      \"completed-at\": \"1969-06-23T01:26:21.394Z\",\n      \"fields\": {\n        \"key_0\": 5068,\n        \"key_1\": false\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"key_0\": 8047.258999958656\n    },\n    \"relationships\": {\n      \"key_0\": true,\n      \"key_1\": 1874,\n      \"key_2\": \"string\",\n      \"key_3\": 496.6180412673238\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 5570.19148256359,\n        \"key_1\": 8207.193895879724,\n        \"key_2\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 8793.905297818867\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": true\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 9953,\n    \"key_1\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3be5e6e4-c717-40fa-8d18-fd7d1870a25e",
+          "name": "Retrieve an Inquiry",
+          "request": {
+            "name": "Retrieve an Inquiry",
+            "description": {
+              "content": "Retrieves the details of an existing Inquiry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inquiries",
+                ":inquiry-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inquiry-id",
+                  "description": "(Required) The unique identifier of the Inquiry."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Pins the API version to a release date, e.g. 2023-01-05.",
+                "key": "Persona-Version",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Controls the casing of JSON keys in requests and responses.",
+                "key": "Key-Inflection",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "744b0d36-0eae-4e1a-bca7-91e7c77d2904",
+              "name": "The requested Inquiry.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inquiries",
+                    ":inquiry-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inquiry-id",
+                      "description": "(Required) The unique identifier of the Inquiry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Pins the API version to a release date, e.g. 2023-01-05.",
+                    "key": "Persona-Version",
+                    "value": "2023-01-05"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Controls the casing of JSON keys in requests and responses.",
+                    "key": "Key-Inflection",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"inquiry\",\n    \"id\": \"string\",\n    \"attributes\": {\n      \"status\": \"completed\",\n      \"reference-id\": \"string\",\n      \"created-at\": \"1969-06-04T21:10:20.005Z\",\n      \"completed-at\": \"1966-12-05T11:04:39.467Z\",\n      \"fields\": {\n        \"key_0\": 9354\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"key_0\": false,\n      \"key_1\": 449,\n      \"key_2\": 9639\n    },\n    \"relationships\": {\n      \"key_0\": 5894,\n      \"key_1\": 7279,\n      \"key_2\": 7535.95510237792\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 5641\n      },\n      \"relationships\": {\n        \"key_0\": 388.0750921459475\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": false\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 7624,\n    \"key_1\": 5488.242644541428,\n    \"key_2\": 1134\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7903d59a-6db1-4add-9e5c-0260ebf677e0",
+          "name": "Update an Inquiry",
+          "request": {
+            "name": "Update an Inquiry",
+            "description": {
+              "content": "Updates fields on an existing Inquiry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inquiries",
+                ":inquiry-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inquiry-id",
+                  "description": "(Required) The unique identifier of the Inquiry."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"fields\": {\n        \"key_0\": true,\n        \"key_1\": true\n      },\n      \"note\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f6cb23a0-4aaa-4e4c-ae13-74774659d7c8",
+              "name": "The updated Inquiry.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inquiries",
+                    ":inquiry-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inquiry-id",
+                      "description": "(Required) The unique identifier of the Inquiry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"fields\": {\n        \"key_0\": false,\n        \"key_1\": false\n      },\n      \"note\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"inquiry\",\n    \"id\": \"string\",\n    \"attributes\": {\n      \"status\": \"completed\",\n      \"reference-id\": \"string\",\n      \"created-at\": \"1969-06-04T21:10:20.005Z\",\n      \"completed-at\": \"1966-12-05T11:04:39.467Z\",\n      \"fields\": {\n        \"key_0\": 9354\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"key_0\": false,\n      \"key_1\": 449,\n      \"key_2\": 9639\n    },\n    \"relationships\": {\n      \"key_0\": 5894,\n      \"key_1\": 7279,\n      \"key_2\": 7535.95510237792\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 5641\n      },\n      \"relationships\": {\n        \"key_0\": 388.0750921459475\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": false\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 7624,\n    \"key_1\": 5488.242644541428,\n    \"key_2\": 1134\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c116837-0433-49ab-9d87-a84718418ae2",
+          "name": "Approve an Inquiry",
+          "request": {
+            "name": "Approve an Inquiry",
+            "description": {
+              "content": "Approves an Inquiry that is in a completed or needs-review state.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inquiries",
+                ":inquiry-id",
+                "approve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inquiry-id",
+                  "description": "(Required) The unique identifier of the Inquiry."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6dd94552-7622-4415-bbac-89f4bb70fdee",
+              "name": "The approved Inquiry.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inquiries",
+                    ":inquiry-id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inquiry-id",
+                      "description": "(Required) The unique identifier of the Inquiry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"inquiry\",\n    \"id\": \"string\",\n    \"attributes\": {\n      \"status\": \"completed\",\n      \"reference-id\": \"string\",\n      \"created-at\": \"1969-06-04T21:10:20.005Z\",\n      \"completed-at\": \"1966-12-05T11:04:39.467Z\",\n      \"fields\": {\n        \"key_0\": 9354\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"key_0\": false,\n      \"key_1\": 449,\n      \"key_2\": 9639\n    },\n    \"relationships\": {\n      \"key_0\": 5894,\n      \"key_1\": 7279,\n      \"key_2\": 7535.95510237792\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 5641\n      },\n      \"relationships\": {\n        \"key_0\": 388.0750921459475\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": false\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 7624,\n    \"key_1\": 5488.242644541428,\n    \"key_2\": 1134\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5401da2b-8e88-4267-a6fa-f9d82086a713",
+          "name": "Decline an Inquiry",
+          "request": {
+            "name": "Decline an Inquiry",
+            "description": {
+              "content": "Declines an Inquiry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inquiries",
+                ":inquiry-id",
+                "decline"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inquiry-id",
+                  "description": "(Required) The unique identifier of the Inquiry."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c017bace-01a9-445e-9756-338557a87c8a",
+              "name": "The declined Inquiry.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inquiries",
+                    ":inquiry-id",
+                    "decline"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inquiry-id",
+                      "description": "(Required) The unique identifier of the Inquiry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"inquiry\",\n    \"id\": \"string\",\n    \"attributes\": {\n      \"status\": \"completed\",\n      \"reference-id\": \"string\",\n      \"created-at\": \"1969-06-04T21:10:20.005Z\",\n      \"completed-at\": \"1966-12-05T11:04:39.467Z\",\n      \"fields\": {\n        \"key_0\": 9354\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"key_0\": false,\n      \"key_1\": 449,\n      \"key_2\": 9639\n    },\n    \"relationships\": {\n      \"key_0\": 5894,\n      \"key_1\": 7279,\n      \"key_2\": 7535.95510237792\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 5641\n      },\n      \"relationships\": {\n        \"key_0\": 388.0750921459475\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": false\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 7624,\n    \"key_1\": 5488.242644541428,\n    \"key_2\": 1134\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "098f26b2-8b98-4e6e-9742-4a7038a8e35e",
+          "name": "Mark an Inquiry for manual review",
+          "request": {
+            "name": "Mark an Inquiry for manual review",
+            "description": {},
+            "url": {
+              "path": [
+                "inquiries",
+                ":inquiry-id",
+                "mark-for-review"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inquiry-id",
+                  "description": "(Required) The unique identifier of the Inquiry."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "20dcafb1-339e-43d8-9d3c-c13d01da93c2",
+              "name": "The Inquiry marked for review.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inquiries",
+                    ":inquiry-id",
+                    "mark-for-review"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inquiry-id",
+                      "description": "(Required) The unique identifier of the Inquiry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"inquiry\",\n    \"id\": \"string\",\n    \"attributes\": {\n      \"status\": \"completed\",\n      \"reference-id\": \"string\",\n      \"created-at\": \"1969-06-04T21:10:20.005Z\",\n      \"completed-at\": \"1966-12-05T11:04:39.467Z\",\n      \"fields\": {\n        \"key_0\": 9354\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"key_0\": false,\n      \"key_1\": 449,\n      \"key_2\": 9639\n    },\n    \"relationships\": {\n      \"key_0\": 5894,\n      \"key_1\": 7279,\n      \"key_2\": 7535.95510237792\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 5641\n      },\n      \"relationships\": {\n        \"key_0\": 388.0750921459475\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": false\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 7624,\n    \"key_1\": 5488.242644541428,\n    \"key_2\": 1134\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92ba698a-e924-41a9-b8d9-a5dc76709a83",
+          "name": "Expire an Inquiry",
+          "request": {
+            "name": "Expire an Inquiry",
+            "description": {},
+            "url": {
+              "path": [
+                "inquiries",
+                ":inquiry-id",
+                "expire"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inquiry-id",
+                  "description": "(Required) The unique identifier of the Inquiry."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4fcccce8-b7d1-4f2c-952c-bc212e93b232",
+              "name": "The expired Inquiry.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inquiries",
+                    ":inquiry-id",
+                    "expire"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inquiry-id",
+                      "description": "(Required) The unique identifier of the Inquiry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"inquiry\",\n    \"id\": \"string\",\n    \"attributes\": {\n      \"status\": \"completed\",\n      \"reference-id\": \"string\",\n      \"created-at\": \"1969-06-04T21:10:20.005Z\",\n      \"completed-at\": \"1966-12-05T11:04:39.467Z\",\n      \"fields\": {\n        \"key_0\": 9354\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"key_0\": false,\n      \"key_1\": 449,\n      \"key_2\": 9639\n    },\n    \"relationships\": {\n      \"key_0\": 5894,\n      \"key_1\": 7279,\n      \"key_2\": 7535.95510237792\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 5641\n      },\n      \"relationships\": {\n        \"key_0\": 388.0750921459475\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": false\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 7624,\n    \"key_1\": 5488.242644541428,\n    \"key_2\": 1134\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7efed5f-7f01-4ae8-9cca-d01ac2f155ea",
+          "name": "Resume an Inquiry",
+          "request": {
+            "name": "Resume an Inquiry",
+            "description": {
+              "content": "Resumes an Inquiry and returns a session token to continue the flow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inquiries",
+                ":inquiry-id",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inquiry-id",
+                  "description": "(Required) The unique identifier of the Inquiry."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "efa5f0dd-6183-4a10-8c07-8d4021a36e98",
+              "name": "The resumed Inquiry with a session token in meta.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inquiries",
+                    ":inquiry-id",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inquiry-id",
+                      "description": "(Required) The unique identifier of the Inquiry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"inquiry\",\n    \"id\": \"string\",\n    \"attributes\": {\n      \"status\": \"completed\",\n      \"reference-id\": \"string\",\n      \"created-at\": \"1969-06-04T21:10:20.005Z\",\n      \"completed-at\": \"1966-12-05T11:04:39.467Z\",\n      \"fields\": {\n        \"key_0\": 9354\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"key_0\": false,\n      \"key_1\": 449,\n      \"key_2\": 9639\n    },\n    \"relationships\": {\n      \"key_0\": 5894,\n      \"key_1\": 7279,\n      \"key_2\": 7535.95510237792\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 5641\n      },\n      \"relationships\": {\n        \"key_0\": 388.0750921459475\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": false\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 7624,\n    \"key_1\": 5488.242644541428,\n    \"key_2\": 1134\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e297fa87-aa32-4828-a68b-5be574d6cf9b",
+          "name": "Generate a one-time link for an Inquiry",
+          "request": {
+            "name": "Generate a one-time link for an Inquiry",
+            "description": {},
+            "url": {
+              "path": [
+                "inquiries",
+                ":inquiry-id",
+                "generate-one-time-link"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inquiry-id",
+                  "description": "(Required) The unique identifier of the Inquiry."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4021ed39-256d-46b5-bf96-a13c92736c86",
+              "name": "The Inquiry with a one-time link in meta.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inquiries",
+                    ":inquiry-id",
+                    "generate-one-time-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inquiry-id",
+                      "description": "(Required) The unique identifier of the Inquiry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"inquiry\",\n    \"id\": \"string\",\n    \"attributes\": {\n      \"status\": \"completed\",\n      \"reference-id\": \"string\",\n      \"created-at\": \"1969-06-04T21:10:20.005Z\",\n      \"completed-at\": \"1966-12-05T11:04:39.467Z\",\n      \"fields\": {\n        \"key_0\": 9354\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"key_0\": false,\n      \"key_1\": 449,\n      \"key_2\": 9639\n    },\n    \"relationships\": {\n      \"key_0\": 5894,\n      \"key_1\": 7279,\n      \"key_2\": 7535.95510237792\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 5641\n      },\n      \"relationships\": {\n        \"key_0\": 388.0750921459475\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": false\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 7624,\n    \"key_1\": 5488.242644541428,\n    \"key_2\": 1134\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60a561ee-bc07-4944-a003-dd03b15392e9",
+          "name": "Redact an Inquiry",
+          "request": {
+            "name": "Redact an Inquiry",
+            "description": {
+              "content": "Permanently redacts personally identifiable information from an Inquiry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inquiries",
+                "{{inquiry-id}}:redact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9c34c3d0-c3a7-4683-b3b9-488856175f32",
+              "name": "The redacted Inquiry.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inquiries",
+                    "{{inquiry-id}}:redact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"inquiry\",\n    \"id\": \"string\",\n    \"attributes\": {\n      \"status\": \"completed\",\n      \"reference-id\": \"string\",\n      \"created-at\": \"1969-06-04T21:10:20.005Z\",\n      \"completed-at\": \"1966-12-05T11:04:39.467Z\",\n      \"fields\": {\n        \"key_0\": 9354\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"key_0\": false,\n      \"key_1\": 449,\n      \"key_2\": 9639\n    },\n    \"relationships\": {\n      \"key_0\": 5894,\n      \"key_1\": 7279,\n      \"key_2\": 7535.95510237792\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 5641\n      },\n      \"relationships\": {\n        \"key_0\": 388.0750921459475\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": false\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 7624,\n    \"key_1\": 5488.242644541428,\n    \"key_2\": 1134\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.withpersona.com/api/v1",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The unique identifier of the Inquiry.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "inquiry-id"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a768e226-128c-40be-9a2e-ed1b5844a4fe",
+    "name": "Persona Accounts Inquiries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Persona API is a configurable identity platform for KYC, KYB, AML, and fraud prevention. It exposes Inquiries, Inquiry Sessions, Accounts, Verifications, Reports, Cases, Transactions, Devices, Documents, Webhooks, Events, Importers, and Workflow Runs.\n\nAll resources follow the JSON:API media type conventions: request and response payloads are wrapped in a top-level `data` object with `type`, `id`, `attributes`, and `relationships` members. Requests are authenticated with a Bearer API key. Two optional headers shape every request: `Persona-Version` pins the API version to a date (e.g. `2023-01-05`), and `Key-Inflection` selects the casing of JSON keys (`camel`, `kebab`, or `snake`). Idempotency is supported via the `Idempotency-Key` header.\n\nContact Support:\n Name: Persona Support\n Email: support@withpersona.com",
+      "type": "text/plain"
+    }
+  }
+}

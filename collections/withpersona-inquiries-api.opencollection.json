@@ -1,0 +1,279 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Persona Accounts Inquiries API",
+    "version": "2023-01-05"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inquiries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Inquiries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/inquiries",
+            "headers": [
+              {
+                "name": "Persona-Version",
+                "value": ""
+              },
+              {
+                "name": "Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the object after which to start the page."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the object before which to end the page."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (max 100)."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of your organization's Inquiries in reverse chronological order."
+        },
+        {
+          "info": {
+            "name": "Create an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiries",
+            "headers": [
+              {
+                "name": "Persona-Version",
+                "value": ""
+              },
+              {
+                "name": "Key-Inflection",
+                "value": ""
+              },
+              {
+                "name": "Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Inquiry, optionally pre-filling attributes and auto-creating an Account or Session."
+        },
+        {
+          "info": {
+            "name": "Retrieve an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/inquiries/:inquiry-id",
+            "headers": [
+              {
+                "name": "Persona-Version",
+                "value": ""
+              },
+              {
+                "name": "Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "inquiry-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Inquiry."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing Inquiry."
+        },
+        {
+          "info": {
+            "name": "Update an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.withpersona.com/api/v1/inquiries/:inquiry-id",
+            "params": [
+              {
+                "name": "inquiry-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Inquiry."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates fields on an existing Inquiry."
+        },
+        {
+          "info": {
+            "name": "Approve an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiries/:inquiry-id/approve",
+            "params": [
+              {
+                "name": "inquiry-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Inquiry."
+              }
+            ]
+          },
+          "docs": "Approves an Inquiry that is in a completed or needs-review state."
+        },
+        {
+          "info": {
+            "name": "Decline an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiries/:inquiry-id/decline",
+            "params": [
+              {
+                "name": "inquiry-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Inquiry."
+              }
+            ]
+          },
+          "docs": "Declines an Inquiry."
+        },
+        {
+          "info": {
+            "name": "Mark an Inquiry for manual review",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiries/:inquiry-id/mark-for-review",
+            "params": [
+              {
+                "name": "inquiry-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Inquiry."
+              }
+            ]
+          },
+          "docs": "Mark an Inquiry for manual review"
+        },
+        {
+          "info": {
+            "name": "Expire an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiries/:inquiry-id/expire",
+            "params": [
+              {
+                "name": "inquiry-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Inquiry."
+              }
+            ]
+          },
+          "docs": "Expire an Inquiry"
+        },
+        {
+          "info": {
+            "name": "Resume an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiries/:inquiry-id/resume",
+            "params": [
+              {
+                "name": "inquiry-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Inquiry."
+              }
+            ]
+          },
+          "docs": "Resumes an Inquiry and returns a session token to continue the flow."
+        },
+        {
+          "info": {
+            "name": "Generate a one-time link for an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiries/:inquiry-id/generate-one-time-link",
+            "params": [
+              {
+                "name": "inquiry-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Inquiry."
+              }
+            ]
+          },
+          "docs": "Generate a one-time link for an Inquiry"
+        },
+        {
+          "info": {
+            "name": "Redact an Inquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.withpersona.com/api/v1/inquiries/:inquiry-id:redact",
+            "params": [
+              {
+                "name": "inquiry-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Inquiry."
+              }
+            ]
+          },
+          "docs": "Permanently redacts personally identifiable information from an Inquiry."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

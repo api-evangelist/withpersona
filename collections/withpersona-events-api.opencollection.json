@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Persona Accounts Events API",
+    "version": "2023-01-05"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/events",
+            "params": [
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the object after which to start the page."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (max 100)."
+              }
+            ]
+          },
+          "docs": "Returns the queryable record of everything that has happened in your account."
+        },
+        {
+          "info": {
+            "name": "Retrieve an Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/events/:event-id",
+            "params": [
+              {
+                "name": "event-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve an Event"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

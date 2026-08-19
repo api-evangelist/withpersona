@@ -1,0 +1,231 @@
+{
+  "item": [
+    {
+      "id": "78770faf-5558-4c42-8e8d-13c08cfcb7e0",
+      "name": "Importers",
+      "description": {
+        "content": "Bulk-load data into Persona lists.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a64287a9-b78a-4658-b4e0-6a40852c9db8",
+          "name": "List all Importers",
+          "request": {
+            "name": "List all Importers",
+            "description": {},
+            "url": {
+              "path": [
+                "importer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>",
+                  "description": "Cursor for the object after which to start the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "10",
+                  "description": "Number of results per page (max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5da56dc1-1b8b-473c-a126-da1376470b8b",
+              "name": "A list of Importers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "importer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 882\n      },\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": 7544.815143091482\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 1294.8584741183179,\n        \"key_1\": 2741.5235392269165,\n        \"key_2\": 2680.6688503616583\n      },\n      \"relationships\": {\n        \"key_0\": 5536.6681512082005,\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb174deb-03f6-453b-add9-63aca5fedf7e",
+          "name": "Retrieve an Importer",
+          "request": {
+            "name": "Retrieve an Importer",
+            "description": {},
+            "url": {
+              "path": [
+                "importer",
+                ":importer-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "importer-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2b0ef443-65b1-4835-ba1b-a3b9e9531879",
+              "name": "The requested Importer.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "importer",
+                    ":importer-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "importer-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"id\": \"string\",\n    \"attributes\": {\n      \"key_0\": \"string\"\n    },\n    \"relationships\": {\n      \"key_0\": true,\n      \"key_1\": \"string\"\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 5417,\n        \"key_1\": 2989.8067525181614,\n        \"key_2\": false,\n        \"key_3\": true\n      },\n      \"relationships\": {\n        \"key_0\": 8926,\n        \"key_1\": \"string\",\n        \"key_2\": 6874,\n        \"key_3\": 6624\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 7277,\n        \"key_1\": 9679\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 2911.127755692935\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.withpersona.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dc9240b3-51cb-433f-ac08-802db9947d02",
+    "name": "Persona Accounts Importers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Persona API is a configurable identity platform for KYC, KYB, AML, and fraud prevention. It exposes Inquiries, Inquiry Sessions, Accounts, Verifications, Reports, Cases, Transactions, Devices, Documents, Webhooks, Events, Importers, and Workflow Runs.\n\nAll resources follow the JSON:API media type conventions: request and response payloads are wrapped in a top-level `data` object with `type`, `id`, `attributes`, and `relationships` members. Requests are authenticated with a Bearer API key. Two optional headers shape every request: `Persona-Version` pins the API version to a date (e.g. `2023-01-05`), and `Key-Inflection` selects the casing of JSON keys (`camel`, `kebab`, or `snake`). Idempotency is supported via the `Idempotency-Key` header.\n\nContact Support:\n Name: Persona Support\n Email: support@withpersona.com",
+      "type": "text/plain"
+    }
+  }
+}

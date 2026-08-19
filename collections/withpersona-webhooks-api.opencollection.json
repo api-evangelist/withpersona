@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Persona Accounts Webhooks API",
+    "version": "2023-01-05"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/webhooks",
+            "params": [
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the object after which to start the page."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (max 100)."
+              }
+            ]
+          },
+          "docs": "List all Webhooks"
+        },
+        {
+          "info": {
+            "name": "Create a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Webhook"
+        },
+        {
+          "info": {
+            "name": "Retrieve a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/webhooks/:webhook-id",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a Webhook"
+        },
+        {
+          "info": {
+            "name": "Update a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.withpersona.com/api/v1/webhooks/:webhook-id",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Webhook"
+        },
+        {
+          "info": {
+            "name": "Enable a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/webhooks/:webhook-id/enable",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Enable a Webhook"
+        },
+        {
+          "info": {
+            "name": "Disable a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/webhooks/:webhook-id/disable",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Disable a Webhook"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

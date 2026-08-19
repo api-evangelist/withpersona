@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Persona Accounts Cases API",
+    "version": "2023-01-05"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Cases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/cases",
+            "params": [
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the object after which to start the page."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (max 100)."
+              }
+            ]
+          },
+          "docs": "List all Cases"
+        },
+        {
+          "info": {
+            "name": "Create a Case",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/cases",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Case"
+        },
+        {
+          "info": {
+            "name": "Retrieve a Case",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/cases/:case-id",
+            "params": [
+              {
+                "name": "case-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a Case"
+        },
+        {
+          "info": {
+            "name": "Update a Case",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.withpersona.com/api/v1/cases/:case-id",
+            "params": [
+              {
+                "name": "case-id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Case"
+        },
+        {
+          "info": {
+            "name": "Assign a Case",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/cases/:case-id/assign",
+            "params": [
+              {
+                "name": "case-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Assign a Case"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

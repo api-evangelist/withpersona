@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Persona Accounts Inquiry Sessions API",
+    "version": "2023-01-05"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inquiry Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Inquiry Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/inquiry-sessions",
+            "params": [
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the object after which to start the page."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (max 100)."
+              }
+            ]
+          },
+          "docs": "List all Inquiry Sessions"
+        },
+        {
+          "info": {
+            "name": "Create an Inquiry Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiry-sessions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an Inquiry Session"
+        },
+        {
+          "info": {
+            "name": "Retrieve an Inquiry Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/inquiry-sessions/:inquiry-session-id",
+            "params": [
+              {
+                "name": "inquiry-session-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve an Inquiry Session"
+        },
+        {
+          "info": {
+            "name": "Expire an Inquiry Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withpersona.com/api/v1/inquiry-sessions/:inquiry-session-id/expire",
+            "params": [
+              {
+                "name": "inquiry-session-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Expire an Inquiry Session"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

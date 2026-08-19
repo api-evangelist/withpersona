@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Persona Accounts Verifications API",
+    "version": "2023-01-05"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Verifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a Verification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withpersona.com/api/v1/verifications/:verification-id",
+            "headers": [
+              {
+                "name": "Persona-Version",
+                "value": ""
+              },
+              {
+                "name": "Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "verification-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves an existing Verification of any type - government ID, government ID NFC, selfie, document, phone number, email address, or database (AAMVA, eCBSV, TIN, phone carrier, business, standard)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
