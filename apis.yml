@@ -7,6 +7,18 @@ description: Persona (withpersona.com) is a configurable identity platform for K
   identity Inquiries, collect Verifications (government ID, selfie, database, document,
   phone, and email), pull watchlist and adverse-media Reports, manage review Cases,
   score Transactions, and orchestrate Workflows, all under api.withpersona.com/api/v1.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
