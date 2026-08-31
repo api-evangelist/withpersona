@@ -477,7 +477,7 @@ apis:
   humanURL: https://docs.withpersona.com/api-reference/inquiries
   baseURL: https://api.withpersona.com/api/v1
   tags:
-  - Verification
+  - Verifications
   tags_raw:
   - Verifications
   properties:
