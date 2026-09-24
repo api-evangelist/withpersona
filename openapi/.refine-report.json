@@ -33,6 +33,21 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "withpersona-accounts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "withpersona-cases-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "withpersona-devices-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "withpersona-documents-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "withpersona-events-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "withpersona-importers-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "withpersona-inquiries-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "withpersona-inquiry-sessions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "withpersona-reports-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "withpersona-transactions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "withpersona-verifications-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "withpersona-webhooks-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "withpersona-workflows-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

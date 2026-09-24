@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Persona Accounts Documents API
   description: 'The Persona API is a configurable identity platform for KYC, KYB, AML, and fraud prevention. It exposes Inquiries, Inquiry Sessions, Accounts, Verifications, Reports, Cases, Transactions, Devices, Documents, Webhooks, Events, Importers, and Workflow Runs.
@@ -42,6 +42,19 @@ paths:
                 $ref: '#/components/schemas/GenericResource'
 components:
   schemas:
+    GenericResource:
+      type: object
+      description: A JSON:API document wrapping a single resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        meta:
+          type: object
+          additionalProperties: true
     ResourceObject:
       type: object
       description: A JSON:API resource object.
@@ -54,19 +67,6 @@ components:
           type: object
           additionalProperties: true
         relationships:
-          type: object
-          additionalProperties: true
-    GenericResource:
-      type: object
-      description: A JSON:API document wrapping a single resource.
-      properties:
-        data:
-          $ref: '#/components/schemas/ResourceObject'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceObject'
-        meta:
           type: object
           additionalProperties: true
   securitySchemes:

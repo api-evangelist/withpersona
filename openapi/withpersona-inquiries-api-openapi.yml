@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Persona Accounts Inquiries API
   description: 'The Persona API is a configurable identity platform for KYC, KYB, AML, and fraud prevention. It exposes Inquiries, Inquiry Sessions, Accounts, Verifications, Reports, Cases, Transactions, Devices, Documents, Webhooks, Events, Importers, and Workflow Runs.
@@ -212,18 +212,18 @@ paths:
                 $ref: '#/components/schemas/InquiryResource'
 components:
   parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      description: A unique key to safely retry a request without duplicating the operation.
+      schema:
+        type: string
     InquiryId:
       name: inquiry-id
       in: path
       required: true
       description: The unique identifier of the Inquiry.
-      schema:
-        type: string
-    PageAfter:
-      name: page[after]
-      in: query
-      required: false
-      description: Cursor for the object after which to start the page.
       schema:
         type: string
     KeyInflection:
@@ -237,14 +237,6 @@ components:
         - camel
         - kebab
         - snake
-    PersonaVersion:
-      name: Persona-Version
-      in: header
-      required: false
-      description: Pins the API version to a release date, e.g. 2023-01-05.
-      schema:
-        type: string
-        example: '2023-01-05'
     PageSize:
       name: page[size]
       in: query
@@ -254,13 +246,14 @@ components:
         type: integer
         default: 10
         maximum: 100
-    IdempotencyKey:
-      name: Idempotency-Key
+    PersonaVersion:
+      name: Persona-Version
       in: header
       required: false
-      description: A unique key to safely retry a request without duplicating the operation.
+      description: Pins the API version to a release date, e.g. 2023-01-05.
       schema:
         type: string
+        example: '2023-01-05'
     PageBefore:
       name: page[before]
       in: query
@@ -268,29 +261,24 @@ components:
       description: Cursor for the object before which to end the page.
       schema:
         type: string
+    PageAfter:
+      name: page[after]
+      in: query
+      required: false
+      description: Cursor for the object after which to start the page.
+      schema:
+        type: string
   schemas:
-    InquiryResourceObject:
-      allOf:
-      - $ref: '#/components/schemas/ResourceObject'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: inquiry
-          attributes:
-            $ref: '#/components/schemas/InquiryAttributes'
-    ResourceObject:
+    InquiryResource:
       type: object
-      description: A JSON:API resource object.
       properties:
-        type:
-          type: string
-        id:
-          type: string
-        attributes:
-          type: object
-          additionalProperties: true
-        relationships:
+        data:
+          $ref: '#/components/schemas/InquiryResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        meta:
           type: object
           additionalProperties: true
     InquiryAttributes:
@@ -301,15 +289,17 @@ components:
           description: The current state of the Inquiry (e.g. created, pending, completed, approved, declined, expired).
           example: completed
         reference-id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         created-at:
           type: string
           format: date-time
         completed-at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         fields:
           type: object
           additionalProperties: true
@@ -348,6 +338,20 @@ components:
               type: boolean
             auto-create-inquiry-session:
               type: boolean
+    ResourceObject:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
     InquiryUpdateRequest:
       type: object
       required:
@@ -364,18 +368,6 @@ components:
                   additionalProperties: true
                 note:
                   type: string
-    InquiryResource:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/InquiryResourceObject'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceObject'
-        meta:
-          type: object
-          additionalProperties: true
     InquiryList:
       type: object
       properties:
@@ -387,11 +379,23 @@ components:
           type: object
           properties:
             prev:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             next:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
+    InquiryResourceObject:
+      allOf:
+      - $ref: '#/components/schemas/ResourceObject'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: inquiry
+          attributes:
+            $ref: '#/components/schemas/InquiryAttributes'
   securitySchemes:
     bearerAuth:
       type: http

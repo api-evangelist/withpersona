@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Persona Accounts Inquiry Sessions API
   description: 'The Persona API is a configurable identity platform for KYC, KYB, AML, and fraud prevention. It exposes Inquiries, Inquiry Sessions, Accounts, Verifications, Reports, Cases, Transactions, Devices, Documents, Webhooks, Events, Importers, and Workflow Runs.
@@ -93,23 +93,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/GenericResource'
 components:
-  parameters:
-    PageAfter:
-      name: page[after]
-      in: query
-      required: false
-      description: Cursor for the object after which to start the page.
-      schema:
-        type: string
-    PageSize:
-      name: page[size]
-      in: query
-      required: false
-      description: Number of results per page (max 100).
-      schema:
-        type: integer
-        default: 10
-        maximum: 100
   schemas:
     ResourceObject:
       type: object
@@ -137,11 +120,13 @@ components:
           type: object
           properties:
             prev:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             next:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
     GenericResource:
       type: object
       description: A JSON:API document wrapping a single resource.
@@ -155,6 +140,23 @@ components:
         meta:
           type: object
           additionalProperties: true
+  parameters:
+    PageSize:
+      name: page[size]
+      in: query
+      required: false
+      description: Number of results per page (max 100).
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+    PageAfter:
+      name: page[after]
+      in: query
+      required: false
+      description: Cursor for the object after which to start the page.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
